@@ -1,12 +1,14 @@
-
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
 
+#Function to convert given image to greyscale 
+#Input: Image name
+#Output: Greyscale of image as np array
 def RGB2Gray(s):
     # input image name
-    img = cv2.imread(s)#s
+    img = cv2.imread(s)
     I = np.array(img)
     global row
     global col
@@ -23,6 +25,8 @@ def RGB2Gray(s):
 
 
 # Greyscale histogram
+#Input: Greyscale image as np array
+#Output: Histogram of greyscale image 
 def greyscaleImageHist(I_prime):
    # row, col = I_prime.shape[:2]
     H = np.empty(256, dtype=np.uint8)
@@ -37,6 +41,8 @@ def greyscaleImageHist(I_prime):
 
 
 # Normalized GreyScale Image Hist
+#Input: Greyscale of image as np array
+#Output: Normalized Histogram of image 
 
 def normalizedGreyScaleImageHist(I_prime):
     #row, col = I_prime.shape[:2]
@@ -52,8 +58,9 @@ def normalizedGreyScaleImageHist(I_prime):
     return H_prime;
 
 
-    # Cumulative Sum
-
+# Cumulative Sum
+#Input: Normalized histogram 
+#Output: Cumulative sum 
 def cumulativeSum(H_prime):
     cdf = np.empty(256, dtype=np.float32)
     cdf[0] = H_prime[0]
@@ -63,7 +70,9 @@ def cumulativeSum(H_prime):
 
     return cdf;
 
-    # Eualize Hist
+# Eualize Hist
+#Input: Greyscale image as np array 
+#Output: Equalized Image as np array in correspondence to the Histogram 
 def equalizeHist(I_prime):
     #row, col = I_prime.shape[:2]
     I_equalize = np.zeros([row, col], dtype=np.uint8)
@@ -76,7 +85,9 @@ def equalizeHist(I_prime):
 
     return I_equalize;
 
-    # Histogram Matching
+# Histogram Matching
+#Input: Greyscale image as np array and Histogram 
+#Output: Image as np array 
 def histMatching(I_prime, H_prime):
     H = normalizedGreyScaleImageHist(I_prime)
     cdf = cumulativeSum(H)
@@ -96,10 +107,10 @@ def histMatching(I_prime, H_prime):
 
     return I_matched;
 
-
+#Main method 
 def main():
-    I_prime=RGB2Gray("light-image.tif")
-    I_ref=RGB2Gray("low-contrast.tif")
+    I_prime=RGB2Gray("light-image-for-histogram-equalization.tif")
+    I_ref=RGB2Gray("low-contrast-image-for-histogram-equalization.tif")
     H=greyscaleImageHist(I_prime)
     H_normalized=normalizedGreyScaleImageHist(I_ref)
     H_matching=histMatching(I_prime,H_normalized)
