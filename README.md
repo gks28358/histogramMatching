@@ -19,7 +19,7 @@ HistogramMatching\_testcase.docx
 # **Runtime Instructions**
 
 1. Download Histogram.py to your python environment.
-  1. Python version 3.7 or higher is recommended on Windows 7 or above or Mac 10 or above.
+  1. Python version 3.7 or higher is recommended on Windows 10 or above or Mac 10 or above.
   2. Ensure you have the cv2, numpy and matplotlib.pyplot libraries installed in your python environment.
 2. Download the .tif images supplied or specify your own to the programs main folder.
   1. Specify the image names in the main program variables:
